@@ -1,0 +1,51 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <title>Code Quiz</title>
+</head>
+<body>
+    <div>
+        <a href="./highScores.html">View HighScores</a>
+        <p id="time">
+            <span> Time left: </span>
+            
+            <span id="time-left"> 8 minutes</span>  
+        </p>
+    </div>
+    <div id=intro>
+        <h1>Code Quiz</h1>
+        <p>Come get this quiz done!</p>
+        <button id="start-quiz">Start Quiz</button>
+    </div>
+    <div class="buttons">
+        <button class="quit"> Exit Quiz </button>
+        <button class="restart"> Restart Quiz </button>
+    </div>
+    <section class= "quiz-box" id="quiz">
+        <h1 id="question">Question</h1>
+        <ul id="answers">
+            <li id="answers-1">question one</li>
+            <li id="answers-2">question two</li>
+            <li id="answers-3">question three</li>
+            <li id="answers-4">question four</li>
+        </ul>
+        <p id="right-or-wrong">show if is right or wrong</p>
+    </section>
+    <div id="info">
+        <h1>Save your score</h1>
+        <p>your score</p>
+        <form>
+            <input type="text" id="initals" placeholder="Enter Initials">
+        </form>
+    </div>
+
+
+<script src="./script.js"></script> 
+</body>
+</html>
