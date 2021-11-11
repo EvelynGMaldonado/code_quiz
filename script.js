@@ -3,7 +3,8 @@ var quizEl = document.getElementById("quiz");
 var infoEl = document.getElementById("info");
 
 var startQuizBtn = document.getElementById("start-quiz");
-
+var nextQuestBtn = document.getElementById("next");
+var saveNameBtn = document.getElementById("name");
 var questionTittle = document.getElementById("question");
 
 var answer1 = document.getElementById("answers-1");
@@ -20,9 +21,12 @@ var timeLeftEl = document.getElementById("time-left");
 
 var rightOrWrongEl = document.getElementById("right-or-wrong");
 
+
 var interval;
-var totalTime = 480000;
+var totalTime = 240000;
 var currentQuestion = 0;
+var score = 0;
+var highscores = [];
 
 //TODO: create an array of objects that has three properties `questions:string`, `answers:array`, `rightAnwers:number` 
 
@@ -52,16 +56,16 @@ var questions = [
 function startQuiz(event){
     event.preventDefault();
     clearInterval(interval);
-    totalTime--;
     interval = setInterval(function(){
+        totalTime--;
         if(totalTime <= 0){
-            totalTime = 480000;
+            totalTime = 240000;
             clearInterval(interval);
             infoEl.style.display = "block";
 			quizEl.style.display = "none";
         }
         timeLeftEl.textContent = totalTime;
-    },60000)
+    },1000)
 
     introEl.style.display = "none";
     quizEl.style.display = "block"
@@ -86,23 +90,51 @@ function checkAnswer(event){
     var textAnswer = event.target.innerText;
     if (textAnswer === questions[currentQuestion].rightAnswer){
         rightOrWrongEl.textContent = "Right"
+        score++;
     }else{
         rightOrWrongEl.textContent = "Wrong";
     }
-    rightOrWrongEl.style.display = "block"
-    currentQuestion++
+    rightOrWrongEl.style.display = "block";
+    nextQuestBtn.style.display = "block";
+}
 
-    if(currentQuestion === questions.length){
-        totalTime = 480000;
-		clearInterval(interval);
-		infoEl.style.display = "block";
-		quizEl.style.display = "none";
+function incrementCurrentQ() {
+    currentQuestion++;
+}
+function onNextBtnClick() {
+//hide the next btn
+//increment the quest
+//hide word r or wr
+    if(currentQuestion === questions.length -1){
+        totalTime = 240000;
+        clearInterval(interval);
+        infoEl.style.display = "block";
+        quizEl.style.display = "none";
         return
     }
-
+    rightOrWrongEl.style.display = "none";
+    incrementCurrentQ();
     displayQuestions();
+    nextQuestBtn.style.display ="none";
+}
+
+function storeInfo(e) {
+    e.preventDefault();
+    var value = document.getElementById("initials").value;
+    var userScore = {
+        username: value,
+        score: score,
+    };
+    highscores.push(userScore);
+    localStorage.setItem("highscores", JSON.stringify(highscores));
+    window.location.href="./highScores.html";
 }
 
 
+
+nextQuestBtn.addEventListener("click", onNextBtnClick);
 startQuizBtn.addEventListener("click", startQuiz);
 answersEl.addEventListener("click", checkAnswer);
+saveNameBtn.addEventListener("click", storeInfo);
+
+
