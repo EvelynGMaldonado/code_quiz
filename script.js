@@ -23,10 +23,10 @@ var rightOrWrongEl = document.getElementById("right-or-wrong");
 
 
 var interval;
-var totalTime = 240000;
+var totalTime = 120;
 var currentQuestion = 0;
 var score = 0;
-var highscores = [];
+
 
 //TODO: create an array of objects that has three properties `questions:string`, `answers:array`, `rightAnwers:number` 
 
@@ -59,7 +59,7 @@ function startQuiz(event){
     interval = setInterval(function(){
         totalTime--;
         if(totalTime <= 0){
-            totalTime = 240000;
+            totalTime = 120;
             clearInterval(interval);
             infoEl.style.display = "block";
 			quizEl.style.display = "none";
@@ -93,6 +93,7 @@ function checkAnswer(event){
         score++;
     }else{
         rightOrWrongEl.textContent = "Wrong";
+        totalTime -= 10;
     }
     rightOrWrongEl.style.display = "block";
     nextQuestBtn.style.display = "block";
@@ -106,7 +107,7 @@ function onNextBtnClick() {
 //increment the quest
 //hide word r or wr
     if(currentQuestion === questions.length -1){
-        totalTime = 240000;
+        totalTime = 120;
         clearInterval(interval);
         infoEl.style.display = "block";
         quizEl.style.display = "none";
@@ -120,6 +121,8 @@ function onNextBtnClick() {
 
 function storeInfo(e) {
     e.preventDefault();
+    console.log("Inside store info")
+    var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
     var value = document.getElementById("initials").value;
     var userScore = {
         username: value,
