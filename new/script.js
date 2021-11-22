@@ -2,9 +2,8 @@ var introEl = document.getElementById("intro");
 var quizEl = document.getElementById("quiz");
 var infoEl = document.getElementById("info");
 
-var startQuizBtn = document.getElementById("start-quiz");
-var nextQuestBtn = document.getElementById("next");
-var saveNameBtn = document.getElementById("name");
+var startButton = document.getElementById("start-quiz");
+var timeNotRunning = true;
 var questionTittle = document.getElementById("question");
 
 var answer1 = document.getElementById("answers-1");
@@ -21,14 +20,9 @@ var timeLeftEl = document.getElementById("time-left");
 
 var rightOrWrongEl = document.getElementById("right-or-wrong");
 
-
 var interval;
-var totalTime = 120;
+var totalTime = 480000;
 var currentQuestion = 0;
-var score = 0;
-
-
-
 
 //TODO: create an array of objects that has three properties `questions:string`, `answers:array`, `rightAnwers:number` 
 
@@ -58,18 +52,18 @@ var questions = [
 function startQuiz(event){
     event.preventDefault();
     clearInterval(interval);
+    totalTime--;
     interval = setInterval(function(){
-        totalTime--;
         if(totalTime <= 0){
-            totalTime = 120;
+            totalTime = 480000;
             clearInterval(interval);
             infoEl.style.display = "block";
 			quizEl.style.display = "none";
         }
         timeLeftEl.textContent = totalTime;
-    },1000)
+    },60000)
 
-    introEl.style.display = "none";
+    introEl.style.display = "inline";   /* it was none before*/ */
     quizEl.style.display = "block"
 
     displayQuestions();
@@ -82,9 +76,9 @@ function displayQuestions(){
 
     answer2.textContent = questions[currentQuestion].answers[1];
 
-    answer3.textContent = questions[currentQuestion].answers[3];
+    answer3.textContent = questions[currentQuestion].answers[2];
 
-    answer4.textContent = questions[currentQuestion].answers[4];
+    answer4.textContent = questions[currentQuestion].answers[3];
 }
 
 function checkAnswer(event){
@@ -92,54 +86,58 @@ function checkAnswer(event){
     var textAnswer = event.target.innerText;
     if (textAnswer === questions[currentQuestion].rightAnswer){
         rightOrWrongEl.textContent = "Right"
-        score++;
     }else{
         rightOrWrongEl.textContent = "Wrong";
-        totalTime -= 10;
     }
-    rightOrWrongEl.style.display = "block";
-    nextQuestBtn.style.display = "block";
-}
+    rightOrWrongEl.style.display = "block"
+    currentQuestion++
 
-function incrementCurrentQ() {
-    currentQuestion++;
-}
-function onNextBtnClick() {
-//hide the next btn
-//increment the quest
-//hide word r or wr
-    if(currentQuestion === questions.length -1){
-        totalTime = 120;
-        clearInterval(interval);
-        infoEl.style.display = "block";
-        quizEl.style.display = "none";
+    if(currentQuestion === questions.length){
+        totalTime = 480000;
+		clearInterval(interval);
+		infoEl.style.display = "block";
+		quizEl.style.display = "none";
         return
     }
-    rightOrWrongEl.style.display = "none";
-    incrementCurrentQ();
+
     displayQuestions();
-    nextQuestBtn.style.display ="none";
 }
 
-function storeInfo(e) {
-    e.preventDefault();
-    console.log("Inside store info")
-    var highscores = JSON.parse(localStorage.getItem("highscores")) || [];
-    var value = document.getElementById("initials").value;
-    var userScore = {
-        username: value,
-        score: score,
-    };
-    highscores.push(userScore);
-    localStorage.setItem("highscores", JSON.stringify(highscores));
-    window.location.href="./highScores.html";
+startButton.addEventListener("click",function(event){
+    if(timeNotRunning){
+        event.preventDefault();
+        let gameLength = 10;
+        startTimer(gameLength);
+    }
+});
+
+
+function startTimer(secondsLeft) {
+    timeNotRunning = false;
+    var timer = setInterval(function(){
+        secondsLeft--;
+        //update the part of the page that has the timer
+        counter.textContent = secondsLeft + "s left in game.";
+        if(secondsLeft <= 0){
+            clearInterval(timer);
+            timeNotRunning = true;
+            counter.textContent = "You Lost!";
+            //update score (you lost)
+        }
+    },1000);
 }
 
 
+var score = {
+    wins: 0,
+    losses: 0
+}
+if(localStorage.getItem(score)!==null){
+    score = JSON.parse(localStorage.getItem("score"));
+} else {
+    localStorage.setItem("score",JSON.stringify(score));
+}
 
-nextQuestBtn.addEventListener("click", onNextBtnClick);
+
 startQuizBtn.addEventListener("click", startQuiz);
 answersEl.addEventListener("click", checkAnswer);
-saveNameBtn.addEventListener("click", storeInfo);
-
-
