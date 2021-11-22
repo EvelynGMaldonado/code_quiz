@@ -24,6 +24,8 @@ var interval;
 var totalTime = 480000;
 var currentQuestion = 0;
 
+
+
 //TODO: create an array of objects that has three properties `questions:string`, `answers:array`, `rightAnwers:number` 
 
 var questions = [
