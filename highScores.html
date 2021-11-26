@@ -5,21 +5,32 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css"integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Audiowide|Sofia|Trirong">
     <link rel="stylesheet" href="./reset.css">
     <link rel="stylesheet" href="./style.css">
     <title>Code Quiz</title>
 </head>
 <body>
-    <div>
-        <a href="./index.html">Back to quiz page</a>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col mt-2">
+                <a class="hs" href="./index.html">Back to quiz page</a>
+            </div>
+            <div class="col-7">
+                    <section class= "scores-box" id="score">
+                        <h1 id="stsc">Student Score</h1>
+                        <ul class="mt-4" id="list-of-students">
+                        </ul>
+                    </section>
+            </div>
+            <div class="buttons col">
+            </div>
+        </div>
     </div>
-    <section class= "scores-box" id="score">
-        <h1>Student Score</h1>
-        <ul id="list-of-students">
-            
-        </ul>
-        
-    </section>
+    
 <script src="./highscores.js"></script> 
 </body>
 </html>

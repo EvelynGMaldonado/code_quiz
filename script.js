@@ -5,6 +5,8 @@ var infoEl = document.getElementById("info");
 var startQuizBtn = document.getElementById("start-quiz");
 var nextQuestBtn = document.getElementById("next");
 var saveNameBtn = document.getElementById("name");
+var restartBtn = document.getElementById("restart");
+var exitBtn = document.getElementById("exit");
 var questionTittle = document.getElementById("question");
 
 var answer1 = document.getElementById("answers-1");
@@ -80,9 +82,9 @@ function displayQuestions(){
 
     answer2.textContent = questions[currentQuestion].answers[1];
 
-    answer3.textContent = questions[currentQuestion].answers[3];
+    answer3.textContent = questions[currentQuestion].answers[2];
 
-    answer4.textContent = questions[currentQuestion].answers[4];
+    answer4.textContent = questions[currentQuestion].answers[3];
 }
 
 function checkAnswer(event){
@@ -133,11 +135,19 @@ function storeInfo(e) {
     window.location.href="./highScores.html";
 }
 
+function restartQ() {
+    window.location.href="index.html";
+}
+function exitQ() {
+    window.location.href="./highScores.html";
+}
 
 
 nextQuestBtn.addEventListener("click", onNextBtnClick);
 startQuizBtn.addEventListener("click", startQuiz);
 answersEl.addEventListener("click", checkAnswer);
 saveNameBtn.addEventListener("click", storeInfo);
+restartBtn.addEventListener("click", restartQ);
+exitBtn.addEventListener("click", exitQ);
 
 
