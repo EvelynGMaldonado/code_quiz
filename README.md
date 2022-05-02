@@ -40,4 +40,4 @@ If you have any questions, please contact me at the information listed below.
 ![Student Score](./assets/studentscore.PNG)
 
 * Link to the GitHub Repository:
-[Weather Dashboard](https://github.com/EvelynGMaldonado/code_quiz)
+[Quiz app](https://github.com/EvelynGMaldonado/code_quiz)
