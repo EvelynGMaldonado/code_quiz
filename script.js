@@ -1,3 +1,9 @@
+var time = moment().format("hh:mm:ss");
+$("#currenttime").text(time);
+
+var today = moment();
+$("#currentday").text(today.format("MMM Do, YYYY"));
+
 var introEl = document.getElementById("intro");
 var quizEl = document.getElementById("quiz");
 var infoEl = document.getElementById("info");
